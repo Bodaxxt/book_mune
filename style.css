@@ -22,7 +22,7 @@ body {
 }
 
 .flipbook .hard {
-    background-image: url('file:///C:/Users/d/Downloads/drive-download-20250811T102201Z-1-001/images/1%20(16).jpg') !important;
+    background-image: url('images/1 (16).jpg') !important;
     background-size: cover; /* <-- جرب تغير النسبة دي (مثلاً 70% أو 90%) لحد ما توصل للشكل المطلوب */
 
     /* 3. منع تكرار الصورة */
@@ -73,4 +73,5 @@ body {
 	font-size: 10px;
     margin-bottom: 5px;
 }
+
 
