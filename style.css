@@ -17,8 +17,8 @@ body {
 }
 
 .flipbook {
-    width: 500px;
-    height: 300px;
+    width: 800px;
+    height: 500px;
 }
 
 .flipbook .hard {
@@ -74,3 +74,18 @@ body {
     margin-bottom: 5px;
 }
 
+@media (max-width: 800px) {
+    .flipbook {
+        width: 100%;
+        height: auto;
+    }
+
+    .flipbook .hard {
+        background-size: contain !important;
+    }
+
+    .flipbook .page img {
+        width: 100%;
+        height: auto;
+    }
+}
