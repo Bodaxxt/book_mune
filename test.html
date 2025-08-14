@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+    <title>Our Branches</title>
+<style>
+    /* ----- بداية الستايل ----- */
+    *, *::before, *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    body {
+        /* هذا السطر لتجربة الكود فقط، لن يؤثر على موقعك */
+        background-color: #121212; 
+    }
+
+    .locations-section {
+        font-family: 'Cairo', sans-serif;
+        width: 100%;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 40px 10px;
+        background: #101010; /* خلفية القسم الداكنة */
+    }
+
+    .section-title {
+        font-size: 3rem;
+        font-weight: 900;
+        color: #ffffff;
+        margin-bottom: 10px;
+        text-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+    }
+    
+    .section-subtitle {
+        font-size: 1.2rem;
+        color: #b0b0b0;
+        margin-bottom: 40px;
+    }
+
+    .locations-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 15px;
+        width: 100%;
+        max-width: 1200px;
+        height: 600px;
+        perspective: 1000px; /* لإضافة عمق للتأثير */
+    }
+
+    .location-card {
+        position: relative;
+        height: 100%;
+        flex: 1; /* يبدأ بحجم متساوي */
+        border-radius: 20px;
+        overflow: hidden;
+        background-size: cover;
+        background-position: center;
+        cursor: pointer;
+        transition: flex 0.8s cubic-bezier(0.165, 0.84, 0.44, 1),
+                    transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1),
+                    filter 0.6s ease;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        border: 2px solid rgba(255, 255, 255, 0.1);
+    }
+
+    /* صور الخلفية لكل فرع */
+    .card-zayed { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.8)), url('https://images.unsplash.com/photo-1594434208294-272b12165a25?q=80&w=1935&auto=format&fit=crop'); }
+    .card-dokki { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.8)), url('https://images.unsplash.com/photo-1634547936648-8422e4d3a033?q=80&w=1887&auto=format&fit=crop'); }
+    .card-alex { background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.8)), url('https://images.unsplash.com/photo-1599268984923-883d29ce4599?q=80&w=1964&auto=format&fit=crop'); }
+
+    /* التأثير الخرافي عند مرور الماوس */
+    .locations-container:hover .location-card:not(:hover) {
+        flex: 0.5; /* تصغير الكروت الأخرى */
+        filter: brightness(0.4) grayscale(0.5);
+    }
+    .location-card:hover {
+        flex: 5; /* تكبير الكارت المحدد */
+        transform: translateZ(20px); /* يبرز للأمام قليلاً */
+        border-color: rgba(0, 255, 170, 0.7);
+    }
+
+    .card-content {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        padding: 25px;
+        color: white;
+        transform: translateY(70%); /* إخفاء المحتوى جزئياً */
+        transition: transform 0.6s cubic-bezier(0.23, 1, 0.320, 1);
+        background: linear-gradient(transparent, rgba(0,0,0,0.8));
+    }
+    
+    .location-card:hover .card-content {
+        transform: translateY(0); /* إظهار المحتوى بالكامل */
+    }
+
+    .card-title {
+        font-size: 2.5rem;
+        font-weight: 900;
+        margin-bottom: 10px;
+    }
+
+    .card-details {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.5s 0.3s ease, transform 0.5s 0.3s ease;
+    }
+    
+    .location-card:hover .card-details {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    .card-details p {
+        font-size: 1.1rem;
+        margin-bottom: 20px;
+        max-width: 400px; /* لضمان عدم تمدد النص بشكل كبير */
+    }
+
+    .card-actions {
+        display: flex;
+        gap: 15px;
+    }
+
+    .card-actions a {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 12px 24px;
+        border-radius: 50px;
+        text-decoration: none;
+        font-size: 1rem;
+        font-weight: 700;
+        color: #ffffff;
+        border: 2px solid transparent;
+        transition: all 0.3s ease;
+    }
+
+    .btn-map {
+        background-color: #007BFF; /* أزرق للخريطة */
+    }
+    .btn-map:hover {
+        background-color: #fff;
+        color: #007BFF;
+        border-color: #007BFF;
+        transform: scale(1.05);
+    }
+    
+    .btn-call {
+        background-color: #28a745; /* أخضر للاتصال */
+    }
+    .btn-call:hover {
+        background-color: #fff;
+        color: #28a745;
+        border-color: #28a745;
+        transform: scale(1.05);
+    }
+    
+</style>
+</head>
+<body>
+
+<section class="locations-section">
+    <h2 class="section-title">فروعنا حولك في كل مكان</h2>
+    <p class="section-subtitle">اختر الفرع الأقرب لك وتواصل معنا</p>
+    
+    <div class="locations-container">
+        <!-- ===== فرع زايد ===== -->
+        <div class="location-card card-zayed">
+            <div class="card-content">
+                <h3 class="card-title">فرع زايد</h3>
+                <div class="card-details">
+                    <p>الحي 13، المجاورة الثانية، بجوار مول أركان بلازا، الشيخ زايد.</p>
+                    <div class="card-actions">
+                       <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d372.9711058031504!2d31.038146847225896!3d30.038318757139166!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14585be94e5c692b%3A0xc500892432de8fb1!2z2YXYt9i52YUg2YXYrNin2KjZitizINmE2YTZhdij2YPZiNmE2KfYqiDYp9mE2YPZiNmK2KrZitip!5e0!3m2!1sen!2seg!4v1755186672377!5m2!1sen!2seg" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        <a href="tel:01027527593" class="btn-call">
+                            <span>📞</span> اتصل الآن
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== فرع الدقي ===== -->
+        <div class="location-card card-dokki">
+            <div class="card-content">
+                <h3 class="card-title">فرع الدقي</h3>
+                <div class="card-details">
+                    <p>15 شارع مصدق، متفرع من شارع محي الدين أبو العز، الدقي، الجيزة.</p>
+                    <div class="card-actions">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d810.2815702248878!2d31.216525280071536!3d30.04415607590285!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1458417258bf37db%3A0xfb7636728e9e78c!2z2YXYt9i52YUg2YXYrNin2KjZitizINmE2YTZhdin2YPZiNmE2KfYqiDYp9mE2YPZiNmK2KrZitip!5e0!3m2!1sen!2seg!4v1755187044626!5m2!1sen!2seg" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                        <a href="tel:01205062966" class="btn-call">
+                            <span>📞</span> اتصل الآن
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- ===== فرع الإسكندرية ===== -->
+        <div class="location-card card-alex">
+            <div class="card-content">
+                <h3 class="card-title">فرع الإسكندرية</h3>
+                <div class="card-details">
+                    <p>شارع فؤاد، تقاطع شارع السلطان حسين، محطة الرمل، الإسكندرية.</p>
+                    <div class="card-actions">
+                      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3412.5517731793125!2d29.903450274477144!3d31.20543916263597!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x14f5c37ba871cd63%3A0x6b8bfcada305704e!2z2YXYt9i52YUg2YXYrNin2KjZitizINmE2YTZhdij2YPZiNmE2KfYqiDYp9mE2YPZiNmK2KrZitip!5e0!3m2!1sen!2seg!4v1755187122577!5m2!1sen!2seg" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                                              <a href="tel:01123456789" class="btn-call">
+                            <span>📞</span> اتصل الآن
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+</body>
+</html>
