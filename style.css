@@ -74,10 +74,12 @@ body {
     margin-bottom: 5px;
 }
 
-@media (max-width: 800px) {
+@media (max-width: 991px) {
     .flipbook {
-        width: 100%;
-        height: auto;
+        .flipbook {
+            width: 500px;
+            height: 300px;
+        }
     }
 
     .flipbook .hard {
